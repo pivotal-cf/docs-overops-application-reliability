@@ -1,32 +1,39 @@
 ---
-title: Installing and Configuring YOUR-PRODUCT-NAME
+title: Installing and Configuring OverOps Reliability Platform
 owner: Partners
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to install and configure YOUR-PRODUCT-NAME.
+This topic describes how to install and configure OverOps Reliability Platform.
 
-##<a id='install'></a> Install and Configure YOUR-PRODUCT-NAME
+##<a id='install'></a> Install and Configure OverOps Reliability Platform
 
-To install the YOUR-PRODUCT-NAME file on the Ops Manager Installation Dashboard, do the following:
+To install the OverOps Reliability Platform file on the Ops Manager Installation Dashboard, do the following:
 
 1. Download the product file from Pivotal Network.
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
 
-1. Under the **Import a Product** button, click **+** next to the version number of YOUR-PRODUCT-NAME. 
+1. Under the **Import a Product** button, click **+** next to the version number of OverOps file 
 This adds the tile to your staging area.
 
-1. Click the newly added **YOUR-PRODUCT-NAME** tile.
+1. Click the newly added OverOps Reliability Platform tile.
 
-1. **This portion of the procedure should tell the users how to configure the newly added tile by
-walking them through the sections. Which fields should they fill out? What are the different
-checkboxes? Include relevant screenshots here.** 
-
+1. Please add your Backend URL
+1. Enter your OverOps secret key
+1. Finally enter the OverOps server name (default is `hostname`)
+1. Also please enter the required fields for Assign AZ's and Network
 1. Click **Save**.
 
-1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install YOUR-PRODUCT-NAME tile.
+1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install OverOps Reliability Platform tile.
 
-**If needed, include additional configuration information below. For example, maybe there are
-configuration options not required for installation but which could be useful for certain users.**
+##<a id='connect'></a> Connect OverOps remote Collector to Agent
+
+1. Prerequisite: make sure to have the java buildpack deployed with your application, and TCP networking is enabled before continuing this guide. 
+2. To begin if you have not yet created a shared domain with TCP protocol please do. Ex ```cf create-shared-domain tcp.hostname.com --router-group default-tcp```  
+3. Map a route to the OverOps collector that was deployed during your Tile upload. ```cf map-route overops-collector-version# tcp.hostname.com --random-port``` In this case I am generating a random port, `--port 1234` can also work but TCP ports are shared throughout the environment. To avoid conflicting with other appliations `--random-port` is recomended. 
+4. After mapping a route, create a service that provides two JSON objects `collector_host` and `collector_port` there must be a tag with the name `takipi`. Ex ```cf cups takipi-service '{"collector_host":"tcp.hostname.com", "collector_port":"1234"}'``` 
+5.Bind the service to the your application(the OverOps agent lives inside of the Java buildpack)
+```cf bind-service app_name takipi-service``` then restage the application ```cf restage app_name```
+6. Once the service is bound, please check your backend url site to make sure that the collector and agent are sucessfully connected. 
