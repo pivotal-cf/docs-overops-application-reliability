@@ -7,5 +7,17 @@ owner: Partners
 
 This topic describes how to use OverOps Reliability Platform.
 
+##<a id='pre-req'></a> Prequisite's
+
+1. Prerequisite: make sure to have the java buildpack deployed with your application, and TCP networking enabled before continuing. Java offline buildpack and https://github.com/cloudfoundry/java-buildpack are both allowed
+##<a id='connect'></a> Connect OverOps remote Collector to Agent
+
+1. Create a shared domain with TCP protocol. Ex ```cf create-shared-domain tcp.hostname.com --router-group default-tcp```  
+2. Map a route to the OverOps collector that was deployed during your Tile upload. ```cf map-route overops-collector-version# tcp.ex_hostname.com --random-port```. Random Port allows to avoid potential port conflict on the shared environment. To specify port use ```--port 1234```. 
+3. After mapping a route, create a service that provides a JSON object `collector_host` and `collector_port` there must be a tag with the name `takipi`. Ex ```cf cups takipi-service -t "takipi" -p '{"collector_host":"tcp.hostname.com", "collector_port":"1234"}'```. Also if deploying agent and collector in a single container, then only pass in the ```'{"secret_key":"value"}'``` with no other properties.  
+4. Now to activate the agent, bind the `takipi-service` to your application that has the java-buildpack. 
+```cf bind-service app_name takipi-service``` then restage the application ```cf restage app_name```.
+5. Once the service is bound, please check your backend url site to make sure that the collector and agent are sucessfully connected.
+
 ##<a id='using'></a> Using OverOps Reliability Platform
 Please refer to the OverOps documentation on how to use the Platform ```https://doc.overops.com/docs/reliability-dashboards-overview```
