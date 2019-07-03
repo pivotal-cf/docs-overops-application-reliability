@@ -1,36 +1,40 @@
 ---
-title: OverOps Reliability Platform (Beta)
+title: OverOps Reliability Platform for PCF (Beta)
 owner: Partners
 ---
 
 <strong><%= modified_date %></strong>
 
-**If this product is in beta, keep and edit the warning note below.**
 <p class="note warning">
 <strong>Warning: </strong>
-The OverOps Reliability Platfrom for PCF tile is currently in beta and is intended for evaluation and test purposes only. 
+OverOps Reliability Platform for PCF tile is currently in beta and is intended for evaluation and test purposes only. 
 Do not use this product in a PCF production environment.
 </p>
 
-This documentation describes the OverOps Reliability Platfrom(ORP) for Pivotal Cloud Foundry (PCF). 
+This documentation describes OverOps Reliability Platform for Pivotal Cloud Foundry (PCF). OverOps Reliability Platform for PCF combines the [Takipi Agent Framework](https://github.com/cloudfoundry/java-buildpack/blob/master/docs/framework-takipi_agent.md) with the OverOps Collector and the OverOps Analysis Server, enabling PCF users and administrators to monitor the health and performance of their PCF applications.
 
 ## <a id='overview'></a>Overview
-OverOps is a root-cause identification and analysis application for applications in staging and production phases. It automatically detects the main causes of errors without depending on logging.
 
-The solution can also be seamlessly integrated into a team’s workflow. This is enabled by the multiple integration methods provided by OverOps, for teams to be able to continue utilizing existing tools and services, such as communication channels.
+OverOps Reliability Platform for PCF is made up of three components:
 
-Because of that, OverOps is able to instantly alert the right developer in code breaking instances instead of everyone or the wrong person on the team being deployed. This is automatically performed, so reparative tasks are completed in a short span of time. The same thing is also done whenever a known error resurfaces.
+- The [Takipi Agent Framework](https://github.com/cloudfoundry/java-buildpack/blob/master/docs/framework-takipi_agent.md)
+- The OverOps Collector Tile
+- The OverOps Analysis Server
 
+The [Takipi Agent Framework](https://github.com/cloudfoundry/java-buildpack/blob/master/docs/framework-takipi_agent.md) is included in the standard Java Buildpack. When enabled, the Agent forwards metrics to the Collector, which preproceses the data and sends it to the Analysis Server.
 
-## <a id='features'></a>Key Features
+OverOps is a root-cause identification and analysis platform for applications in staging and production phases. It automatically identifies anomalies without depending on logging, providing deep code-level insights into your applications.
 
-OverOps Reliability Platform includes the following key features:
-    OverOps Collector 4.38.0
+Your application and services are only as good as the reliability they provide your customers, so avoiding costly downtime is critical. OverOps’ real-time machine learning platform integrates into your entire software delivery life cycle, from QA to production, and analyzes your code as it’s executing to detect and prioritize issues automatically – ranging from new and resurfaced errors – to swallowed exceptions and performance slowdowns. From there we deliver True Root Cause with complete context to the right person so that your team can fix issues well before your users are affected.
 
+OverOps has developed a unique approach to gathering machine data, one that changes the way we
+think about log files and how we use them to both troubleshoot and to derive the overall quality of an application or service. OverOps combines static and dynamic analysis to collect complete contextual data for every error and exception thrown in an application with minimal performance impact, securely and without any requirement to modify code. Our solution is code-aware and delivers net new and structured machine data that provides granular detail about every error, its related application and the environment in which it was found. And, most significantly, OverOps is completely independent of log files. In fact, our technology allows us to precede the creation of a log file entry so we can augment them.
+
+For additional details about OverOps integration with Cloud Foundry, visit [OverOps Community](https://support.overops.com/hc/en-us).
 
 ## <a id="snapshot"></a>Product Snapshot
 
-The following table provides version and version-support information about OverOps Reliability Platform.
+The following table provides version and version-support information about OverOps Reliability Platform for PCF.
 
 <table class="nice">
     <th>Element</th>
@@ -49,44 +53,43 @@ The following table provides version and version-support information about OverO
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>4.38.0</td>
+        <td>2.2.x, 2.3.x, 2.4.x, 2.5.x, and 2.6.x</td>
     </tr>
     <tr>
         <td>Compatible Pivotal Application Service version(s)</td>
-        <td>4.+</td>
+        <td>2.2.x, 2.3.x, 2.4.x, 2.5.x, and 2.6.x</td>
     </tr>
     <tr>
        <td>BOSH stemcell version</td>
-       <td>Ubuntu Xenial 315</td>
+       <td>Ubuntu Xenial</td>
     </tr>
     <tr>
         <td>IaaS support</td>
-        <td>GCP</td>
-    </tr>
-    <tr>
-        <td>IPsec support?</td>
-        <td>No</td>
+        <td>AWS, Azure, GCP, OpenStack, and vSphere</td>
     </tr>
 </table>
 
 
 ## <a id="reqs"></a>Requirements
 
-OverOps Reliability Platfrom has the following requirements:
+OverOps Reliability Platform for PCF has the following requirements:
 
-+ Java Buildpack
-+ Environment with TCP enabled
-+ OverOps account
+- You must have or create an [OverOps account](https://www.overops.com/signup) before configuring the tile.
+- You must enable the [Takipi Agent Framework](https://github.com/cloudfoundry/java-buildpack/blob/master/docs/framework-takipi_agent.md) in the `java-buildpack` for your application.
 
 ## <a id="limitations"></a>Limitations
-    
+
+- You must enable TCP routing. See [HTTP vs. TCP Domains
+](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#http-vs-tcp-shared-domains) and [Enabling TCP Routing](https://docs.cloudfoundry.org/adminguide/enabling-tcp-routing.html).
+
+
 ## <a id="feedback"></a>Feedback
 
 If you have a feature request, questions, or information about a bug, please email
-[Pivotal Cloud Foundry Feedback](mailto:cf-feedback@pivotal.io) list. Or send an email to [OverOps Support and Feedback](mailto:support@overops.com)
+[Pivotal Cloud Foundry Feedback](mailto:cf-feedback@pivotal.io) list or send an email to [OverOps Support](mailto:support@overops.com).
 
 ## <a id='license'></a>License
 
-To use the OverOps Reliability Platform you must have an installation key. 
-Please refer to the Official OverOps licensing agreement for any questions. 
-[OverOps Terms of Service](https://www.overops.com/terms)
+OverOps Reliability Platform for PCF is released under the MIT License.
+
+To use OverOps Reliability Platform for PCF you must have an [OverOps account](https://www.overops.com/signup) and installation key.
