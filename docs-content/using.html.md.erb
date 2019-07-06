@@ -1,26 +1,57 @@
 ---
-title: Using OverOps Reliability Platform
+title: Using OverOps Reliability Platform for PCF
 owner: Partners
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to use OverOps Reliability Platform.
+This topic describes how to use OverOps Reliability Platform for PCF.
 
-##<a id='pre-req'></a> Prequisite's
+##<a id='prereqs'></a> Prerequisites
 
-1. Prerequisite: Make sure to have the Java buildpack deployed with your application, and TCP networking enabled before continuing. Java offline buildpack and
-[Java Buildpack](https://github.com/cloudfoundry/java-buildpack) are both allowed
+1. You must use `java-buildpack` for your application.
 
-##<a id='connect'></a> Connect OverOps remote Collector to Agent
+1. You must enable TCP routing. See [HTTP vs. TCP Domains
+](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#http-vs-tcp-shared-domains) and [Enabling TCP Routing](https://docs.cloudfoundry.org/adminguide/enabling-tcp-routing.html).
 
-1. Create a shared domain with TCP protocol enabled. For example ```cf create-shared-domain tcp.hostname.com --router-group default-tcp```  
-2. Map a route to the OverOps Collector that was deployed. ```cf map-route overops-collector-version-# tcp.ex_hostname.com --random-port```. Random Port allows to avoid potential port conflict on the shared environment. To specify port use ```--port 1234```. 
-3. After mapping a route create a service that provides a JSON object `collector_host` and `collector_port`. There must be a tag with the name `takipi`. For example ```cf cups takipi-service -t "takipi" -p '{"collector_host":"tcp.hostname.com", "collector_port":"1234"}'```. Also if deploying agent and collector in a single container, then only pass in the ```'{"secret_key":"value"}'``` with no other properties.  
-4. Now to activate the agent, bind the `takipi-service` to your application that has the java-buildpack. 
-```cf bind-service app_name takipi-service``` Then restage the application ```cf restage app_name```.
-5. Once the service is bound, please check your backend url site to make sure that the collector and agent are sucessfully connected.
 
-##<a id='using'></a> Using OverOps Reliability Platform
-Please refer to the OverOps documentation on how to use the Platform [OverOps Documentation](https://doc.overops.com/docs)
- 
+##<a id='connect'></a> Connect OverOps Collector to Agent
+
+1. [Create a TCP shared domain](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#-create-a-shared-domain) if you have not already created one.
+
+     ```
+     cf create-shared-domain tcp.example.com --router-group default-tcp
+      ```
+
+1. [Map a route](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#-manually-map-a-route) to the OverOps Collector that was deployed during your tile upload.
+
+     ```
+     cf map-route overops-collector tcp.example.com --random-port
+     ```
+
+     Using `--random-port` instructs Cloud Foundry to pick a port for your route. To set a specific port use `--port 1234`.
+
+1. [Create a user-provided service](https://docs.cloudfoundry.org/devguide/services/user-provided.html) to enable the Takipi Agent Framework and deliver the Collector hostname and port to your application.
+
+      ```
+      cf cups takipi-service -t "takipi" -p '{"collector_host":"tcp.example.com", "collector_port":"1234"}'
+      ```
+
+1. Bind `takipi-service` to your application.
+
+      ```
+      cf bind-service app_name takipi-service
+      ```
+
+1. Restage your application.
+
+      ```
+      cf restage app_name
+      ```
+
+1. Once the service is bound, confirm connectivity with the OverOps Analysis Server.
+
+
+##<a id='using'></a> Using OverOps Reliability Platform for PCF
+
+Please refer to [OverOps Documentation](https://doc.overops.com/docs).
