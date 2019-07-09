@@ -1,85 +1,63 @@
 ---
-title: YOUR-PRODUCT-NAME (Beta)
+title: OverOps Reliability Platform for PCF (Beta)
 owner: Partners
 ---
 
 <strong><%= modified_date %></strong>
 
-**If this product is in beta, keep and edit the warning note below.**
 <p class="note warning">
 <strong>Warning: </strong>
-The PRODUCT-NAME for PCF tile is currently in beta and is intended for evaluation and test purposes only. 
+OverOps Reliability Platform for PCF tile is currently in beta and is intended for evaluation and test purposes only. 
 Do not use this product in a PCF production environment.
 </p>
 
-**This topic begins with a brief description of what the product tile (e.g. Apigee Edge Service Broker for PCF) does, 
-whereas the Overview section below describes what the service itself (e.g. Apigee Edge) does. See below for an example.**
-
-This documentation describes the Apigee Edge Service Broker for Pivotal Cloud Foundry (PCF). The Apigee Edge Service 
-Broker for PCF enables developers to manage APIs for their PCF apps through the Apigee Edge management console.
-
-**Note**: This description will appear under **OVERVIEW** in the tile's listing on 
-[Pivotal Network](http://network.pivotal.io).
+This documentation describes OverOps Reliability Platform for Pivotal Cloud Foundry (PCF). OverOps Reliability Platform for PCF combines the [Takipi Agent Framework](https://github.com/cloudfoundry/java-buildpack/blob/master/docs/framework-takipi_agent.md) with the OverOps Collector and the OverOps Analysis Server, enabling PCF users and administrators to monitor the health and performance of their PCF applications.
 
 ## <a id='overview'></a>Overview
 
-**The overview describes the service that your product offers to PCF developers. 
-Make sure to overview the features of the integration.
-Don't focus only on the overview of your product that is being integrated.
-See below for an example.**
+OverOps Reliability Platform for PCF is made up of three components:
 
-The Apigee Edge Service Broker for PCF registers a service broker with PCF and exposes its service plans on the 
-Marketplace. Developers can then create service plan instances using Apps Manager or the Cloud Foundry Command 
-Line Interface (cf CLI) and bind them to their apps.
+- The [Takipi Agent Framework](https://github.com/cloudfoundry/java-buildpack/blob/master/docs/framework-takipi_agent.md)
+- The OverOps Collector Tile
+- The OverOps Analysis Server
 
-Creating an Apigee Edge for PCF service instance and binding it to an app creates an Apigee Edge API proxy that 
-handles requests for the app. This lets developers use the Apigee Edge management console to manage API request 
-handling between clients and the app.
+The [Takipi Agent Framework](https://github.com/cloudfoundry/java-buildpack/blob/master/docs/framework-takipi_agent.md) is included in the standard Java Buildpack. When enabled, the Agent forwards metrics to the Collector, which preproceses the data and sends it to the Analysis Server.
 
-**Note**: This overview will appear under **OVERVIEW**, combined with the description above in the tile's listing on 
-[Pivotal Network](http://network.pivotal.io).
+OverOps is a root-cause identification and analysis platform for applications in staging and production phases. It automatically identifies anomalies without depending on logging, providing deep code-level insights into your applications.
 
-## <a id='features'></a>Key Features
+Your application and services are only as good as the reliability they provide your customers, so avoiding costly downtime is critical. OverOps’ real-time machine learning platform integrates into your entire software delivery life cycle, from QA to production, and analyzes your code as it’s executing to detect and prioritize issues automatically – ranging from new and resurfaced errors – to swallowed exceptions and performance slowdowns. From there we deliver True Root Cause with complete context to the right person so that your team can fix issues well before your users are affected.
 
-**Note**: This feature list will appear under **FEATURES** in the tile's listing on 
-[Pivotal Network](http://network.pivotal.io). 
-Make sure you list the key features of the tile (the integration). 
-We cannot accept a list of the key features of your product that we are integrating.
+OverOps has developed a unique approach to gathering machine data, one that changes the way we
+think about log files and how we use them to both troubleshoot and to derive the overall quality of an application or service. OverOps combines static and dynamic analysis to collect complete contextual data for every error and exception thrown in an application with minimal performance impact, securely and without any requirement to modify code. Our solution is code-aware and delivers net new and structured machine data that provides granular detail about every error, its related application and the environment in which it was found. And, most significantly, OverOps is completely independent of log files. In fact, our technology allows us to precede the creation of a log file entry so we can augment them.
 
-YOUR-PRODUCT-NAME includes the following key features:
-
-* Feature one
-* Feature two
-* Feature three
-
-
+For additional details about OverOps integration with Cloud Foundry, visit [OverOps Community](https://support.overops.com/hc/en-us).
 
 ## <a id="snapshot"></a>Product Snapshot
 
-The following table provides version and version-support information about PRODUCT-NAME.
+The following table provides version and version-support information about OverOps Reliability Platform for PCF.
 
 <table class="nice">
     <th>Element</th>
     <th>Details</th>
     <tr>
         <td>Tile version</td>
-        <td>vYOUR-VERSION-NUMBER</td>
+        <td>v0.9.1</td>
     </tr>
     <tr>
         <td>Release date</td>
-        <td>YOUR-RELEASE-DATE (Ex: July 1, 2019)</td>
+        <td>July 8, 2019</td>
     </tr>
     <tr>
         <td>Software component version</td>
-        <td>YOUR-SOFTWARE-COMPONENT-VERSION-NUMBER</td>
+        <td>4.38.0</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
-        <td>YOUR-COMPATIBLE-OPS-MAN-VERSION (Ex. 2.2, 2.3, and 2.4)</td>
+        <td>2.2.x, 2.3.x, 2.4.x, 2.5.x, and 2.6.x</td>
     </tr>
     <tr>
         <td>Compatible Pivotal Application Service version(s)</td>
-        <td>YOUR-COMPATIBLE-PIVOTAL-APPLICATION-SERVICE-VERSION (Ex. 2.2, 2.3, and 2.4)</td>
+        <td>2.2.x, 2.3.x, 2.4.x, 2.5.x, and 2.6.x</td>
     </tr>
     <tr>
        <td>BOSH stemcell version</td>
@@ -87,36 +65,31 @@ The following table provides version and version-support information about PRODU
     </tr>
     <tr>
         <td>IaaS support</td>
-        <td>AWS?, Azure?, GCP?, OpenStack?, and vSphere?</td>
-    </tr>
-    <tr>
-        <td>IPsec support?</td>
-        <td>[Yes or No]</td>
+        <td>AWS, Azure, GCP, OpenStack, and vSphere</td>
     </tr>
 </table>
 
 
 ## <a id="reqs"></a>Requirements
 
-**Provide any general or specific requirements, prerequisites, or dependencies here. 
-A general requirement might be something like, "An AppDynamics account." 
-A specific requirement might be something like, "Packaging Dependencies for Offline Buildpacks."**
+OverOps Reliability Platform for PCF has the following requirements:
 
-YOUR-PRODUCT-NAME has the following requirements:
-
-+ PREREQUISITE-1
-
-+ PREREQUISITE-2
+- You must have or create an [OverOps account](https://www.overops.com/signup) before configuring the tile.
+- You must enable the [Takipi Agent Framework](https://github.com/cloudfoundry/java-buildpack/blob/master/docs/framework-takipi_agent.md) in the `java-buildpack` for your application.
 
 ## <a id="limitations"></a>Limitations
 
-**List any known limitations.**
+- You must enable TCP routing. See [HTTP vs. TCP Domains
+](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#http-vs-tcp-shared-domains) and [Enabling TCP Routing](https://docs.cloudfoundry.org/adminguide/enabling-tcp-routing.html).
+
 
 ## <a id="feedback"></a>Feedback
 
 If you have a feature request, questions, or information about a bug, please email
-[Pivotal Cloud Foundry Feedback](mailto:cf-feedback@pivotal.io) list or send an email to YOUR-SUPPORT-EMAIL.
+[Pivotal Cloud Foundry Feedback](mailto:cf-feedback@pivotal.io) list or send an email to [OverOps Support](mailto:support@overops.com).
 
 ## <a id='license'></a>License
 
-**List any license information here.**
+OverOps Reliability Platform for PCF is released under the MIT License.
+
+To use OverOps Reliability Platform for PCF you must have an [OverOps account](https://www.overops.com/signup) and installation key.
