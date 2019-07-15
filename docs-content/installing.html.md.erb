@@ -18,15 +18,16 @@ This adds the tile to your staging area.
 
 1. Once the Tile is staged there maybe be a prompt to enter a stemcell. If there is the reccomended stemcell used in development is the Ubuntu Xenial [Stemcell](https://network.pivotal.io/products/stemcells-ubuntu-xenial/)
 
+
 1. Click the newly added **OverOps Reliability Platform for PCF** tile.
 
 1.Click Assign AZ's and Networks button and fill out.
 
-![AZ's Configuration](screenshots/AZ_Network_ex.png) 
+<%= image_tag("screenshots/AZ_Network_ex.png") %>
 
 1. In the **OverOps Collector** section enter the **OverOps Backend URL**, the **OverOps Installation Key**, and your **Server Name**. If you are unsure of these values, please look at the OverOps [Documentation](https://doc.overops.com/docs/collector-properties).
 
-![OverOps filled out form](screenshot/OverOpsCollector_form.png)
+<%= image_tag("screenshot/OverOpsCollector_form.png") %>
 
 1. Click **Save**.
 
@@ -36,27 +37,26 @@ This adds the tile to your staging area.
 
 1. Ensure that your application is deployed and ensure it is using the [Java Buildpack](https://github.com/cloudfoundry/java-buildpack.git).
 
-1. [Create a TCP shared domain](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#-create-a-shared-domain) if you have not already created one.
+1. [Map a route](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#internal-routes) to the collector that was deployed. Use the apps.internal domain in your environment to ensure your collector is not accessible from outside sources.
 
      ```
-     cf create-shared-domain tcp.example.com --router-group default-tcp
-      ```
-
-1. [Map a route](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#-manually-map-a-route) to the OverOps Collector that was deployed during your tile upload.
-
+     cf map-route overops-collector apps.internal --hostname collector
      ```
-     cf map-route overops-collector tcp.example.com --random-port
-     ```
+1. Once a route is mapped, next enable [container to container communication](https://docs.pivotal.io/pivotalcf/2-6/devguide/deploy-apps/cf-networking.html) using a network policy. 
+    
+    ```
+    cf add-network-policy spring-music-5 --destination-app overops-collector-0.9.4 --protocol tcp --port 8080
+    ```
 
-     Using `--random-port` instructs Cloud Foundry to pick a port for your route. To set a specific port use `--port 1234`.
+    <%= image_tag("screenshots/networking_example.png")%>
 
 1. [Create a user-provided service](https://docs.cloudfoundry.org/devguide/services/user-provided.html) to enable the Takipi Agent Framework and deliver the Collector hostname and port to your application.
 
       ```
-      cf cups takipi-service -t "takipi" -p '{"collector_host":"tcp.example.com", "collector_port":"1234"}'
+      cf cups takipi-service -t "takipi" -p '{"collector_host":"collector.apps.internal", "collector_port":"8080"}'
       ```
-
-      ![Service configuration](screenshots/ups_example_config.png)
+      
+      <%= image_tag("screenshots/ups_example_config.png") %>
 
 1. Bind `takipi-service` to your application.
 
@@ -71,4 +71,5 @@ This adds the tile to your staging area.
       ```
 
 1. Once the service is bound, confirm connectivity with the OverOps Analysis Server.
-![OverOps is connected](screenshots/connected_app_to_collector.png)
+      <%= image_tag("screenshots/connected_app_to_collector.png")%>
+
