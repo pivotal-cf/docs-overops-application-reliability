@@ -14,13 +14,13 @@ This topic describes how to use **OverOps Reliability Platform for PCF**.
 1. You must enable TCP routing. See [HTTP vs. TCP Domains
 ](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#http-vs-tcp-shared-domains) and [Enabling TCP Routing](https://docs.cloudfoundry.org/adminguide/enabling-tcp-routing.html).
 
-1. You must have an `apps.internal` domain in your environment to have direct [Container to Container communication](https://docs.pivotal.io/pivotalcf/2-6/devguide/deploy-apps/cf-networking.html)
+1. You must have use the `apps.internal` domain in your environment to use direct [Container to Container communication](https://docs.pivotal.io/pivotalcf/2-6/devguide/deploy-apps/cf-networking.html)
 
 ##<a id='using'></a> Using OverOps Reliability Platform for PCF
 
-Once the Tile is installed and the Configuration instructions have been done, in the top left hand corner of the screen should show `OverOps is Active`. Clicking this button will bring a pop up of all the collectors and agents currently running. 
+Once the tile is installed and configured, the top left corner of the OverOps dashboard will show **OverOps is Active**. Clicking this will open a pop up of all the Collectors and Agents currently running.
 
-1. Once the service is bound and a network policy has been added, confirm connectivity with the OverOps Analysis Server.
+<%= image_tag("screenshots/connected_app_to_collector.png") %>
 
 1. For an introduction to the dashboard refer to [OverOps Classic Dashboard](https://doc.overops.com/docs/quick-intro-to-the-overops-dashboard).
 
