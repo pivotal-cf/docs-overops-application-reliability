@@ -39,7 +39,7 @@ This adds the tile to your staging area.
      ```
      cf map-route overops-collector apps.internal --hostname collector
      ```
-1. Once a route is mapped, next enable [container to container communication](https://docs.pivotal.io/pivotalcf/2-6/devguide/deploy-apps/cf-networking.html) using a network policy. 
+1. Once a route is mapped, enable [container to container communication](https://docs.pivotal.io/pivotalcf/2-6/devguide/deploy-apps/cf-networking.html) using a network policy. 
     
     ```
     cf add-network-policy app_name --destination-app overops_collector_name --protocol tcp --port 8080
