@@ -7,6 +7,8 @@ owner: Partners
 
 This topic describes how to install and configure **OverOps Reliability Platform for PCF**.
 
+##<a id='install'></a> Installing the OverOps Collector
+
 To install the OverOps Reliability Platform for PCF file on the Ops Manager Installation Dashboard, do the following:
 
 1. Download the product file for **OverOps Reliability Platform for PCF** from Pivotal Network.
@@ -18,15 +20,15 @@ This adds the tile to your staging area.
 
 1. Click the newly added **OverOps Reliability Platform for PCF** tile.
 
-1.Click Assign AZ's and Networks button and fill out.
+    <%= image_tag("screenshots/initial.pivotal.upload.png") %>
 
-<%= image_tag("screenshots/AZ_Network_ex.png") %>
+1. In the **OverOps Collector** section enter the **OverOps Backend URL** `https://backend.overops.com` if you access OverOps on [https://app.overops.com](https://app.overops.com), or if you access OverOps using a different URL, enter that URL. Enter the **OverOps Installation Key** for your environment. Refer to [Add an Environment](https://doc.overops.com/docs/add-an-environment) if you are unsure how to find your key. Finally, enter the **Server Name** of your choice. Refer to [Naming the Server](https://doc.overops.com/docs/naming-your-application-server-deployment#section-naming-the-server) for more information.
 
-1. In the **OverOps Collector** section enter the **OverOps Backend URL**, the **OverOps Installation Key**, and your **Server Name**. If you are unsure of these values, please look at the OverOps [Documentation](https://doc.overops.com/docs/collector-properties).
-
-<%= image_tag("screenshot/OverOps-form.png") %>
+    <%= image_tag("screenshots/OverOps-form.png") %>
 
 1. Click **Save**.
+
+    <%= image_tag("screenshots/filled_out_form.png") %>
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install OverOps Reliability Platform for PCF tile.
 
