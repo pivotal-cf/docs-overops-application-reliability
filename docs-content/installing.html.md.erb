@@ -45,7 +45,7 @@ This adds the tile to your staging area.
 1. Once a route is mapped, next enable [container to container communication](https://docs.pivotal.io/pivotalcf/2-6/devguide/deploy-apps/cf-networking.html) using a network policy. 
     
     ```
-    cf add-network-policy spring-music-5 --destination-app overops-collector-0.9.4 --protocol tcp --port 8080
+    cf add-network-policy your_app_name --destination-app overops_collector_name --protocol tcp --port 8080
     ```
 
     <%= image_tag("screenshots/networking_example.png")%>
