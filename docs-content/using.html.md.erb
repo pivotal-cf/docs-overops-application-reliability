@@ -14,44 +14,16 @@ This topic describes how to use **OverOps Reliability Platform for PCF**.
 1. You must enable TCP routing. See [HTTP vs. TCP Domains
 ](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#http-vs-tcp-shared-domains) and [Enabling TCP Routing](https://docs.cloudfoundry.org/adminguide/enabling-tcp-routing.html).
 
-
-##<a id='connect'></a> Connect OverOps Collector to Agent
-
-1. [Create a TCP shared domain](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#-create-a-shared-domain) if you have not already created one.
-
-     ```
-     cf create-shared-domain tcp.example.com --router-group default-tcp
-      ```
-
-1. [Map a route](https://docs.cloudfoundry.org/devguide/deploy-apps/routes-domains.html#-manually-map-a-route) to the OverOps Collector that was deployed during your tile upload.
-
-     ```
-     cf map-route overops-collector tcp.example.com --random-port
-     ```
-
-     Using `--random-port` instructs Pivotal Cloud Foundry to pick a port for your route. To set a specific port use `--port 1234`.
-
-1. [Create a user-provided service](https://docs.cloudfoundry.org/devguide/services/user-provided.html) to enable the Takipi Agent Framework and deliver the Collector hostname and port to your application.
-
-      ```
-      cf cups takipi-service -t "takipi" -p '{"collector_host":"tcp.example.com", "collector_port":"1234"}'
-      ```
-
-1. Bind `takipi-service` to your application.
-
-      ```
-      cf bind-service app_name takipi-service
-      ```
-
-1. Restage your application.
-
-      ```
-      cf restage app_name
-      ```
-
-1. Once the service is bound, confirm connectivity with the OverOps Analysis Server.
-
+1. You must have use the `apps.internal` domain in your environment to use direct [Container to Container communication](https://docs.pivotal.io/pivotalcf/2-6/devguide/deploy-apps/cf-networking.html)
 
 ##<a id='using'></a> Using OverOps Reliability Platform for PCF
 
-Please refer to [OverOps Documentation](https://doc.overops.com/docs).
+Once the tile is installed and configured, the top left corner of the OverOps dashboard will show **OverOps is Active**. Clicking this will open a pop up of all the Collectors and Agents currently running.
+
+<%= image_tag("screenshots/connected_app_to_collector.png") %>
+
+1. For an introduction to the dashboard refer to [OverOps Classic Dashboard](https://doc.overops.com/docs/quick-intro-to-the-overops-dashboard).
+
+1. For a brief introduction on Automated Root Cause page refer to [ARC](https://doc.overops.com/docs/quick-intro-to-automated-root-cause).
+
+1. For an Overview of the Reliability Dashboards please refer to [Dashboard Documentation](https://doc.overops.com/docs/reliability-dashboards-overview).
